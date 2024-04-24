@@ -1,5 +1,3 @@
-# main.py
-
 from src.data import DataModule
 from src.model import ModelModule
 from src.experiment import ExperimentModule
