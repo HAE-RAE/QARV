@@ -1,4 +1,4 @@
-# QARV LLM Experiment
+# QARV Experiment
 
 ## Project Overview
 The QARV (Question and Answers with Regional Variance) project aims to curate a collection of questions with answers that exhibit regional variations across different nations.
