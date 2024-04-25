@@ -34,7 +34,8 @@ git clone https://github.com/HAETAE-project/QARV
 
 ### Usage
 ```bash
-python main.py
+python main.py --dataset_name "HAERAE-HUB/QARV-binary" --model_ckpt "yanolja/EEVE-Korean-Instruct-10.8B-v1.0"
+
 ```
 
 ## Contributing
