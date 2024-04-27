@@ -1,34 +1,24 @@
-import argparse
-import yaml
 from src.data import DataModule
 from src.model import ModelModule
 from src.experiment import ExperimentModule
 from src.analysis import AnalysisModule
 from vllm import SamplingParams
+import yaml
+from config import args
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset_name", type=str, required=True, help="Name of the dataset")
-    parser.add_argument("--model_ckpt", type=str, required=True, help="Checkpoint of the model")
-    parser.add_argument("--prompts_file", type=str, default="./prompts.yaml", help="Path to the prompts YAML file")
-    args = parser.parse_args()
+# Load configuration from YAML
+def load_config(file_path):
+    with open(file_path, 'r') as file:
+        config = yaml.safe_load(file)
+    return config
 
+def main(config, prompts):
     # Module Initialization
-    data_module = DataModule(args.dataset_name)
-    model_module = ModelModule(args.model_ckpt)
-
-    # Load prompts from YAML
-    with open(args.prompts_file, 'r') as file:
-        prompts = yaml.safe_load(file)
+    data_module = DataModule(config['dataset_name'])
+    model_module = ModelModule(config['model_ckpt'])
 
     # Sampling parameters
-    sampling_params = SamplingParams(
-        temperature=0.8,
-        top_p=0.95,
-        min_tokens=20,
-        max_tokens=1024,
-        stop=['###', '#', '\n\n', '\n']
-    )
+    sampling_params = SamplingParams(**config['sampling_params'])
 
     # Experiment
     for prompt in prompts:
@@ -41,4 +31,10 @@ def main():
         print("\n" + "-"*50 + "\n")
 
 if __name__ == "__main__":
-    main()
+    args_cli = args.get_args()
+    config = load_config(args_cli.config_file)
+    prompts = load_config(args_cli.prompts_file)
+    print(config)
+    print(prompts)
+
+    main(config, prompts)
