@@ -32,9 +32,10 @@ Clone the repository to your local machine using:
 git clone https://github.com/HAETAE-project/QARV
 ```
 
-### Usage
+### Usage 
+
 ```bash
-python main.py --dataset_name "HAERAE-HUB/QARV-binary" --model_ckpt "yanolja/EEVE-Korean-Instruct-10.8B-v1.0"
+python main.py --dataset_name "HAERAE-HUB/QARV-binary" --model_ckpt "yanolja/EEVE-Korean-Instruct-10.8B-v1.0" --num_gpus "auto"
 
 ```
 
