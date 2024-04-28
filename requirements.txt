@@ -3,3 +3,5 @@ datasets==2.0.0
 transformers==4.16.2
 vllm==0.1.2
 outlines==0.1.0
+torch>=1.13.1
+ray
