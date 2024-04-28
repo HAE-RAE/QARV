@@ -13,7 +13,7 @@ def load_config(file_path):
         config = yaml.safe_load(file)
     return config
 
-def main(config, prompts, gpu_args):
+def main(args, config, prompts, gpu_args):
     # Module Initialization
     data_module = DataModule(config['dataset_name'])
     model_module = ModelModule(config['model_ckpt'], gpu_args=gpu_args)
@@ -25,8 +25,8 @@ def main(config, prompts, gpu_args):
     for prompt in prompts:
         experiment_module = ExperimentModule(data_module, model_module)
         results = experiment_module.run_experiment(prompt, sampling_params)
-        analysis_module = AnalysisModule(results)
-        report = analysis_module.generate_report()
+        analysis_module = AnalysisModule(config, prompt, results)
+        report = analysis_module.generate_report(args.exp_report_file)
         print(f"Results for prompt: '{prompt}'")
         print(report)
         print("\n" + "-"*50 + "\n")
@@ -39,4 +39,4 @@ if __name__ == "__main__":
     print(config)
     print(prompts)
 
-    main(config, prompts, gpu_args)
+    main(args_cli, config, prompts, gpu_args)

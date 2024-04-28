@@ -5,9 +5,9 @@ class ExperimentModule:
         self.data_module = data_module
         self.model_module = model_module
 
-    def run_experiment(self, prompt):
+    def run_experiment(self, prompt, sampling_params):
         questions = self.data_module.generate_questions(prompt)
-        answers = self.model_module.generate_answers(questions)
+        answers = self.model_module.generate_answers(questions, sampling_params)
         results = self.count_answers(answers)
         return results
 
