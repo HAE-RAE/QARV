@@ -22,14 +22,23 @@ def main(args, config, prompts, gpu_args):
     sampling_params = SamplingParams(**config['sampling_params'])
 
     # Experiment
-    for prompt in prompts:
+    for language in ['English speaker prompt', 'Korean speaker prompt']:
+        prompt_config = prompts[language]
+        context = prompt_config['context']
+        instruction = prompt_config['instruction']
+        question = prompt_config['question']
+        response_placeholder = prompt_config['response_placeholder']
+        
+        complete_prompt = f"<|user|>\n{context}\n{instruction}\n\nQuestion: {question}\n\n<|assistant|>{response_placeholder}"
+
         experiment_module = ExperimentModule(data_module, model_module)
-        results = experiment_module.run_experiment(prompt, sampling_params)
-        analysis_module = AnalysisModule(config, prompt, results)
+        results = experiment_module.run_experiment(complete_prompt, sampling_params)
+        analysis_module = AnalysisModule(config, complete_prompt, results)
         report = analysis_module.generate_report(args.exp_report_file)
-        print(f"Results for prompt: '{prompt}'")
+        print(f"Results for prompt: '{complete_prompt}'")
         print(report)
         print("\n" + "-"*50 + "\n")
+
 
 if __name__ == "__main__":
     args_cli = args.get_args()
