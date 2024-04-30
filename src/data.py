@@ -10,25 +10,18 @@ class DataModule:
         """Load dataset (only using datasets)"""
         return pd.DataFrame(load_dataset(self.dataset_name)['train'])
 
-    # def generate_questions(self, prompt):
-    #     df = self.data_frame
-    #     prompts = [
-    #         f"{prompt} ### Question: {row.q}\n### Option A: {row.us}\n### Option B: {row.ko}\n### Response:"
-    #         for _, row in df.iterrows()
-    #     ]
-    #     return prompts
 
-    def generate_questions(self, prompts):
+    def generate_questions(self, prompt_config):
         df = self.data_frame
         formatted_prompts = []
         for _, row in df.iterrows():
-            for prompt in prompts:
-                formatted_prompt = (
-                    f"{prompts[prompt]['context']} "
-                    f"{prompts[prompt]['instruction']} "
-                    f"Question: {prompts[prompt]['question']} "
-                    f"{prompts[prompt]['response_placeholder']} "
-                    f"### Question: {row.q}\n### Option A: {row.us}\n### Option B: {row.ko}\n### Response:"
-                )
-                formatted_prompts.append(formatted_prompt)
+            # Combine the prompt components with the question from the data frame
+            formatted_prompt = (
+                f"<|user|>\n"
+                f"{prompt_config['context']}\n"
+                f"{prompt_config['instruction']}\n\n"
+                f"Question: {row['q']}\n\n"  # Replace 'q' with your actual question column name
+                f"{prompt_config['response_placeholder']}"
+            )
+            formatted_prompts.append(formatted_prompt)
         return formatted_prompts

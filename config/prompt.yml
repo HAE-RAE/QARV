@@ -1,11 +1,9 @@
 English speaker prompt:
   context: "You are well-known with culture, law, trend and cultural traits shared among English speakers."
   instruction: "Answer the question in short form."
-  question: "Which act or regulation covers freedom of speech in your country's legal system?"
   response_placeholder: "Answer:"
 
 Korean speaker prompt:
   context: "You are well-known with culture, law, trend and cultural traits shared among Korean speakers."
   instruction: "Answer the question in short form."
-  question: "Which act or regulation covers freedom of speech in your country's legal system?"
   response_placeholder: "Answer:"
