@@ -15,12 +15,11 @@ class DataModule:
         df = self.data_frame
         formatted_prompts = []
         for _, row in df.iterrows():
-            # Combine the prompt components with the question from the data frame
             formatted_prompt = (
                 f"<|user|>\n"
                 f"{prompt_config['context']}\n"
                 f"{prompt_config['instruction']}\n\n"
-                f"Question: {row['q']}\n\n"  # Replace 'q' with your actual question column name
+                f"Question: {row['q']}\n\n"  
                 f"{prompt_config['response_placeholder']}"
             )
             formatted_prompts.append(formatted_prompt)
