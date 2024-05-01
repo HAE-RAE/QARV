@@ -1,4 +1,4 @@
-dataset_name: 'HAERAE-HUB/QARV-binary'
+dataset_name: 'HAERAE-HUB/QARV-binary-set'
 model_ckpt: 'yanolja/EEVE-Korean-Instruct-10.8B-v1.0'
 sampling_params:
   temperature: 0.8
@@ -6,4 +6,3 @@ sampling_params:
   min_tokens: 20
   max_tokens: 1024
   stop: ["###", "#", "\n\n", "\n"]
-
