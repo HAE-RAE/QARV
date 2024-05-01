@@ -15,7 +15,6 @@ def load_config(file_path):
 
 def main(args, config, prompts, gpu_args):
     # Module Initialization
-    data_module = DataModule(config['dataset_name'])
     model_module = ModelModule(config['model_ckpt'], gpu_args=gpu_args)
 
     # Sampling parameters
@@ -23,8 +22,9 @@ def main(args, config, prompts, gpu_args):
 
     # Experiment
     for prompt in prompts:
+        data_module = DataModule(config['dataset_name'])
         experiment_module = ExperimentModule(data_module, model_module)
-        results = experiment_module.run_experiment(prompt, sampling_params)
+        results = experiment_module.run_experiment(prompt, sampling_params, args.exp)
         analysis_module = AnalysisModule(config, prompt, results)
         report = analysis_module.generate_report(args.exp_report_file)
         print(f"Results for prompt: '{prompt}'")
