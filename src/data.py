@@ -17,3 +17,13 @@ class DataModule:
             for _, row in df.iterrows()
         ]
         return prompts
+    
+    def prepare_for_choice(self, prompt, answers): #TODO 수정
+        self.data_frame['answer'] = answers
+        """Prepare data for choosing between options."""
+        prompts = [
+            "{} ### Question: {}\n### Option A: {}\n### Option B: {}\n### Response: {}\n### Answer:".format(
+        prompt,row.q, row.us, row.ko, row.answer
+            ) for _, row in self.data_frame.iterrows()
+        ]
+        return prompts
