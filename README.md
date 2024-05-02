@@ -72,6 +72,12 @@ Type: str
 Default: None  
 Usage: --exp EXPERIMENT_OPTION(only "sc" is provided now)  
 
+**--model_cache_dir** : Specifies the directory for caching models and other data used by Hugging Face libraries.   
+Type: str    
+Default: None    
+Usage: --model_cache_dir PATH_TO_CACHE_DIRECTORY    
+
+
 ## Contributing
 
 We welcome contributions to this project! For detailed guidelines on how to contribute, please refer to our [Contribution Pages](https://github.com/guijinSON/QARV/tree/main).
