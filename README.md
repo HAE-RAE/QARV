@@ -47,27 +47,27 @@ python main.py --config_file ./config/my_config.yml --prompts_file ./config/my_p
 ### Arguments
 The following command-line arguments are available for configuring the QARV experiment:
 
---config_file: Specifies the path to the configuration YAML file.  
+**--config_file** : Specifies the path to the configuration YAML file.  
 Type: str  
 Default: ./config/config.yml  
 Usage: --config_file PATH  
 
---prompts_file: Specifies the path to the prompts YAML file.
+**--prompts_file** : Specifies the path to the prompts YAML file.
 Type: str  
 Default: ./config/prompt.yml  
 Usage: --prompts_file PATH  
 
---exp_report_file: Specifies the path to the experimental results file.  
+**--exp_report_file** : Specifies the path to the experimental results file.  
 Type: str  
 Default: ./exp/report.csv  
 Usage: --exp_report_file PATH  
 
---num_gpus: Specifies the number of GPUs to use for distributed inference.  
+**--num_gpus** : Specifies the number of GPUs to use for distributed inference.  
 Type: str  
 Default: auto  
 Usage: --num_gpus NUMBER  
 
---exp: Specifies which experiment to run. This option allows the selection of different experimental setups.  
+**--exp** : Specifies which experiment to run. This option allows the selection of different experimental setups.  
 Type: str  
 Default: None  
 Usage: --exp EXPERIMENT_OPTION(only "sc" is provided now)  
