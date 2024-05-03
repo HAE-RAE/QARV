@@ -13,7 +13,7 @@ class ModelModule:
     def load_model(self):
         """Load LLM """
         if self.use_vllm:
-            llm = LLM(self.model_ckpt, tensor_parallel_size=self.tensor_parallel_size)
+            llm = LLM(model = self.model_ckpt, tensor_parallel_size=self.tensor_parallel_size, revision = self.model_branch)
         return llm
     
     def load_outlines_model(self):
