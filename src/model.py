@@ -1,7 +1,7 @@
 from vllm import LLM, SamplingParams
 from outlines import models
 import torch
-from transformers import AutoModel
+from transformers import AutoModelForCausalLM
 
 class ModelModule:
     def __init__(self, model_ckpt, gpu_args, use_vllm, model_branch = None):
@@ -14,7 +14,7 @@ class ModelModule:
     def load_model(self):
         """Load LLM """
         if self.use_vllm == False:
-            llm = AutoModel.from_pretrained(self.model_ckpt, revision = self.model_branch)
+            llm = AutoModelForCausalLM.from_pretrained(self.model_ckpt, revision = self.model_branch)
         else:
             llm = LLM(model = self.model_ckpt, tensor_parallel_size=self.tensor_parallel_size, revision = self.model_branch)
         return llm
