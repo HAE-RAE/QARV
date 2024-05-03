@@ -77,6 +77,15 @@ Type: str
 Default: None    
 Usage: --model_cache_dir PATH_TO_CACHE_DIRECTORY    
 
+**--use_vllm** : Specifies whether to use a very large language model (vLLM) for inference. 
+Type: bool  
+Default: True  
+Usage: --use_vllm true or false  
+
+**--model_branch** : Used to specify a particular model branch on the Hugging Face platform when you want to utilize models other than the main branch. 
+Type: str  
+Default: None  
+Usage: --model_branch BRANCH_NAME  
 
 ## Contributing
 

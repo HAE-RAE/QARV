@@ -15,7 +15,7 @@ def load_config(file_path):
 
 def main(args, config, prompts):
     # Module Initialization
-    model_module = ModelModule(config['model_ckpt'], gpu_args=args.num_gpus)
+    model_module = ModelModule(config['model_ckpt'], gpu_args=args.num_gpus, use_vllm = args.use_vllm, model_branch=args.model_branch)
 
     # Sampling parameters
     sampling_params = SamplingParams(**config['sampling_params'])
