@@ -74,19 +74,19 @@ Usage: --exp EXPERIMENT_OPTION(only "sc" is provided now)
 
 **--model_cache_dir** : Specifies the directory for caching models and other data used by Hugging Face libraries.   
 Type: str    
-Default: None    
+Default: None     
 Usage: --model_cache_dir PATH_TO_CACHE_DIRECTORY    
 
-**--use_vllm** : Specifies whether to use a very large language model (vLLM) for inference. 
-Type: bool  
-Default: True  
-Usage: --use_vllm true or false  
+**--use_vllm** : Specifies whether to use a very large language model (vLLM) for inference.   
+Type: bool    
+Default: True    
+Usage: --use_vllm true or false    
 
-**--model_branch** : Used to specify a particular model branch on the Hugging Face platform when you want to utilize models other than the main branch. 
+**--model_branch** : Used to specify a particular model branch on the Hugging Face platform when you want to utilize models other than the main branch.    
 Type: str  
-Default: None  
-Usage: --model_branch BRANCH_NAME  
-
+Default: None    
+Usage: --model_branch BRANCH_NAME    
+                                 
 ## Contributing
 
 We welcome contributions to this project! For detailed guidelines on how to contribute, please refer to our [Contribution Pages](https://github.com/guijinSON/QARV/tree/main).
