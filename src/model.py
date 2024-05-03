@@ -3,21 +3,20 @@ from outlines import models
 import torch
 
 class ModelModule:
-    def __init__(self, model_ckpt, gpu_args, use_vllm, model_branch = None):
+    def __init__(self, model_ckpt, gpu_args, use_vllm= False, model_branch = None):
         self.tensor_parallel_size = self._check_parallel_devices(gpu_args)
-        self.use_vllm = use_vllm
-        self.model_ckpt = model_ckpt
-        self.model = self.load_model()
         self.model_branch = model_branch
-
+        self.model_ckpt = model_ckpt
+        self.use_vllm = use_vllm
+        
     def load_model(self):
         """Load LLM """
-        if self.use_vllm:
-            llm = LLM(model = self.model_ckpt, tensor_parallel_size=self.tensor_parallel_size, revision = self.model_branch)
+        llm = LLM(model = self.model_ckpt, tensor_parallel_size=self.tensor_parallel_size, revision = self.model_branch)
         return llm
     
     def load_outlines_model(self):
         if self.use_vllm:
+            self.model = self.load_model()
             llm = models.VLLM(self.model)
         else: 
             if self.model_branch == None:
