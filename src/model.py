@@ -16,7 +16,7 @@ class ModelModule:
         if self.use_vllm == False:
             llm = AutoModelForCausalLM.from_pretrained(self.model_ckpt, revision = self.model_branch)
         else:
-            llm = LLM(model = self.model_ckpt, tensor_parallel_size=self.tensor_parallel_size, revision = self.model_branch)
+            llm = LLM(model = self.model_ckpt, tensor_parallel_size=self.tensor_parallel_size, revision = self.model_branch, tokenizer_revision = self.model_branch)
         return llm
     
     def load_outlines_model(self):
