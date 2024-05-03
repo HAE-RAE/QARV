@@ -10,7 +10,7 @@ class ExperimentModule:
     def run_experiment(self, prompt, sampling_params, exp=None):
         questions = self.data_module.generate_questions(prompt, exp)
         answers = self.model_module.generate_answers(questions, sampling_params)
-        generator = outlines.generate.choice(self.model, ['Option A', 'Option B'])
+        generator = outlines.generate.choice(self.model, ['A', 'B'])
         choice_questions = self.data_module.prepare_for_choice(prompt, answers)
         final_answers = generator(choice_questions)
         if exp == 'sc':
@@ -22,4 +22,4 @@ class ExperimentModule:
     def count_answers(answers):
         """Count the frequency of answers and remap them for clarity!"""
         counts = dict(Counter(answers))
-        return {'US': counts.get('Option A', 0), 'KO': counts.get('Option B', 0)}
+        return {'US': counts.get('A', 0), 'KO': counts.get('B', 0)}
