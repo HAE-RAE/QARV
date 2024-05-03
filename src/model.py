@@ -5,9 +5,9 @@ import torch
 class ModelModule:
     def __init__(self, model_ckpt, gpu_args, use_vllm, model_branch = None):
         self.tensor_parallel_size = self._check_parallel_devices(gpu_args)
+        self.use_vllm = use_vllm
         self.model_ckpt = model_ckpt
         self.model = self.load_model()
-        self.use_vllm = use_vllm
         self.model_branch = model_branch
 
     def load_model(self):
