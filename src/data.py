@@ -32,7 +32,7 @@ class DataModule:
         self.data_frame['answer'] = answers
         """Prepare data for choosing between options."""
         prompts = [
-            "{} ### Question: {}\n### Option A: {}\n### Option B: {}\n### Response: {}\n### Answer:".format(
+            "{} ### Question: {}\n### Option A: {}\n### Option B: {}\n### Response: {}\n### Answer: Option ".format(
                 prompt,row.q, row.us, row.ko, row.answer
             ) for _, row in self.data_frame.iterrows()
         ]
