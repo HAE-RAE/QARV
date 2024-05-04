@@ -9,6 +9,7 @@ class ExperimentModule:
 
     def run_experiment(self, prompt, sampling_params, exp=None):
         if exp == "cot" or exp == "sc":
+            # Chain-of-Thought & Self-Consistency Voting
             questions = self.data_module.generate_questions(prompt, exp)
             answers = self.model_module.generate_answers(questions, sampling_params)
             generator = outlines.generate.choice(self.model, ['A', 'B'])
@@ -18,9 +19,10 @@ class ExperimentModule:
                 final_answers = [Counter(final_answers[i:i+3]).most_common()[0][0] for i in range(0, len(final_answers), 3)]
             results = self.count_answers(final_answers)
         else:
+            # multiple choice
             questions= self.data_module.generate_questions(prompt, exp)
             generator = outlines.generate.choice(self.model, ['A', 'B'])
-            final_answers = generator(choice_questions)
+            final_answers = generator(questions)
             results = self.count_answers(final_answers)
             return results
     @staticmethod
