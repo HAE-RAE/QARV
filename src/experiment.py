@@ -24,7 +24,7 @@ class ExperimentModule:
             generator = outlines.generate.choice(self.model, ['A', 'B'])
             final_answers = generator(questions)
             results = self.count_answers(final_answers)
-            return results
+        return results
     @staticmethod
     def count_answers(answers):
         """Count the frequency of answers and remap them for clarity!"""
