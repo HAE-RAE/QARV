@@ -21,11 +21,11 @@ def main(args, config, prompts):
     sampling_params = SamplingParams(**config['sampling_params'])
 
     # Experiment
-    for prompt in prompts:
+    for nation, prompt in prompts.items():
         data_module = DataModule(config['dataset_name'])
         experiment_module = ExperimentModule(data_module, model_module)
         results = experiment_module.run_experiment(prompt, sampling_params, args.exp)
-        analysis_module = AnalysisModule(config, prompt, results)
+        analysis_module = AnalysisModule(config, nation, prompt, results)
         report = analysis_module.generate_report(args.exp_report_file)
         print(f"Results for prompt: '{prompt}'")
         print(report)
