@@ -17,16 +17,25 @@ class ExperimentModule:
             final_answers = generator(choice_questions)
             if exp == 'sc':
                 final_answers = [Counter(final_answers[i:i+3]).most_common()[0][0] for i in range(0, len(final_answers), 3)]
-            results = self.count_answers(final_answers)
+            results = self.count_answers(final_answers, self.data_module.data_frame['opt'])
         else:
             # multiple choice
             questions= self.data_module.generate_questions(prompt, exp)
             generator = outlines.generate.choice(self.model, ['A', 'B'])
             final_answers = generator(questions)
-            results = self.count_answers(final_answers)
+            results = self.count_answers(final_answers, self.data_module.data_frame['opt'])
         return results
     @staticmethod
-    def count_answers(answers):
-        """Count the frequency of answers and remap them for clarity!"""
-        counts = dict(Counter(answers))
-        return {'US': counts.get('A', 0), 'KO': counts.get('B', 0)}
+    def count_answers(answers, options):
+        us_count = 0
+        ko_count = 0
+
+        for answer, option in zip(answers, options):
+            if answer == 'A':
+                us_count += 1 if option['A'] == 'us' else 0
+                ko_count += 1 if option['A'] == 'ko' else 0
+            elif answer == 'B':
+                us_count += 1 if option['B'] == 'us' else 0
+                ko_count += 1 if option['B'] == 'ko' else 0
+
+        return {'US': us_count, 'KO': ko_count}
