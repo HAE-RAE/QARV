@@ -8,21 +8,20 @@ class DataModule:
         self.dataset_name = dataset_name
         self.data_frame = self.load_data()
         self.seed = seed
-        # self.options = self.generate_options(self.seed)
+        self.generate_options()
 
     def load_data(self):
         """Load dataset (only using datasets)"""
         return pd.DataFrame(load_dataset(self.dataset_name)['train'])
 
-    def generate_options(self, seed):
-        random.seed(seed)
+    def generate_options(self):
+        random.seed(self.seed)
         options_list = [{'a': 'us', 'b': 'ko'}, {'a': 'ko', 'b': 'us'}]
-        self.data_frame['opt'] = random.choice(options_list, size=len(self.data_frame))
+        self.data_frame['opt'] = self.data_frame.apply(lambda x: random.choice(options_list), axis=1)
 
     def generate_questions(self, prompt, exp):
         df = self.data_frame
         template = "{prompt} ### Question: {q}\n### Option A: {a}\n### Option B: {b}\n### Response:"
-        # template = "{prompt} ### Question: {q}\n### Option A: {opt_a}\n### Option B: {opt_b}\n### Response:"
         if exp == 'sc':
             df = pd.DataFrame({
                 'q': [q for q in df['q'] for _ in range(3)],

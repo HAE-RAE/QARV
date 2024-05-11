@@ -25,17 +25,14 @@ class ExperimentModule:
             final_answers = generator(questions)
             results = self.count_answers(final_answers, self.data_module.data_frame['opt'])
         return results
+
     @staticmethod
     def count_answers(answers, options):
-        us_count = 0
-        ko_count = 0
+        us_count = ko_count = 0
 
         for answer, option in zip(answers, options):
-            if answer == 'A':
-                us_count += 1 if option['A'] == 'us' else 0
-                ko_count += 1 if option['A'] == 'ko' else 0
-            elif answer == 'B':
-                us_count += 1 if option['B'] == 'us' else 0
-                ko_count += 1 if option['B'] == 'ko' else 0
+            selected = option[answer.lower()]
+            us_count += selected == 'us'
+            ko_count += selected == 'ko'
 
         return {'US': us_count, 'KO': ko_count}
