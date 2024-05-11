@@ -22,7 +22,7 @@ def main(args, config, prompts):
 
     # Experiment
     for prompt in prompts:
-        data_module = DataModule(config['dataset_name'])
+        data_module = DataModule(config['dataset_name'], args.seed)
         experiment_module = ExperimentModule(data_module, model_module)
         results = experiment_module.run_experiment(prompt, sampling_params, args.exp)
         analysis_module = AnalysisModule(config, prompt, results)
@@ -36,6 +36,7 @@ if __name__ == "__main__":
     config = load_config(args_cli.config_file)
     prompts = load_config(args_cli.prompts_file)
     print(config)
+    print(args_cli)
     print(prompts)
 
     main(args_cli, config, prompts)
