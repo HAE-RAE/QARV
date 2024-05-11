@@ -1,7 +1,7 @@
-pandas>=1.1.5
-datasets==2.0.0
-transformers==4.16.2
-vllm==0.1.2
-git+https://github.com/outlines-dev/outlines.git
-torch>=1.13.1
+pandas
+datasets
+transformers
+vllm==0.4.1
+outlines==0.0.39
+torch
 ray

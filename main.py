@@ -13,9 +13,9 @@ def load_config(file_path):
         config = yaml.safe_load(file)
     return config
 
-def main(args, config, prompts, gpu_args):
+def main(args, config, prompts):
     # Module Initialization
-    model_module = ModelModule(config['model_ckpt'], gpu_args=gpu_args)
+    model_module = ModelModule(config['model_ckpt'], gpu_args=args.num_gpus, use_vllm = args.use_vllm, model_branch=args.model_branch)
 
     # Sampling parameters
     sampling_params = SamplingParams(**config['sampling_params'])
@@ -35,8 +35,7 @@ if __name__ == "__main__":
     args_cli = args.get_args()
     config = load_config(args_cli.config_file)
     prompts = load_config(args_cli.prompts_file)
-    gpu_args = args_cli.num_gpus
     print(config)
     print(prompts)
 
-    main(args_cli, config, prompts, gpu_args)
+    main(args_cli, config, prompts)

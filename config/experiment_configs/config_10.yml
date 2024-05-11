@@ -1,5 +1,5 @@
-dataset_name: 'HAERAE-HUB/QARV-binary-set'
-model_ckpt: 'yanolja/EEVE-Korean-Instruct-10.8B-v1.0'
+dataset_name: HAERAE-HUB/QARV-binary-set
+model_ckpt: 01-ai/Yi-34B
 sampling_params:
   temperature: 0.8
   top_p: 0.95
