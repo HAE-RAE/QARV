@@ -15,8 +15,9 @@ class ExperimentModule:
             generator = outlines.generate.choice(self.model, ['A', 'B'])
             choice_questions = self.data_module.prepare_for_choice(prompt, answers)
             final_answers = generator(choice_questions)
-            if exp == 'sc':
-                final_answers = [Counter(final_answers[i:i+3]).most_common()[0][0] for i in range(0, len(final_answers), 3)]
+            if 'sc' in exp:
+                k = int(exp.split('-')[-1])
+                final_answers = [Counter(final_answers[i:i+k]).most_common()[0][0] for i in range(0, len(final_answers), k)]
             results = self.count_answers(final_answers)
         else:
             # multiple choice
