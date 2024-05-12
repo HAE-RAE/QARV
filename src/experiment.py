@@ -29,4 +29,4 @@ class ExperimentModule:
     def count_answers(answers):
         """Count the frequency of answers and remap them for clarity!"""
         counts = dict(Counter(answers))
-        return {'US': counts.get('A', 0), 'KO': counts.get('B', 0)}
+        return {'us': counts.get('A', 0), 'ko': counts.get('B', 0)}

@@ -21,15 +21,16 @@ def main(args, config, prompts):
     sampling_params = SamplingParams(**config['sampling_params'])
 
     # Experiment
-    for nation, prompt in prompts.items():
-        data_module = DataModule(config['dataset_name'])
-        experiment_module = ExperimentModule(data_module, model_module)
-        results = experiment_module.run_experiment(prompt, sampling_params, args.exp)
-        analysis_module = AnalysisModule(config, nation, prompt, results)
-        report = analysis_module.generate_report(args.exp_report_file)
-        print(f"Results for prompt: '{prompt}'")
-        print(report)
-        print("\n" + "-"*50 + "\n")
+    for nation, prompt_group in prompts.items():
+        for prompt in prompt_group:
+            data_module = DataModule(config['dataset_name'])
+            experiment_module = ExperimentModule(data_module, model_module)
+            results = experiment_module.run_experiment(prompt, sampling_params, args.exp)
+            analysis_module = AnalysisModule(config, nation, prompt, results)
+            report = analysis_module.generate_report(args.exp_report_file)
+            print(f"Results for prompt: '{prompt}'")
+            print(report)
+            print("\n" + "-"*50 + "\n")
 
 if __name__ == "__main__":
     args_cli = args.get_args()
