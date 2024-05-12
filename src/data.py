@@ -4,10 +4,9 @@ import random
 
 
 class DataModule:
-    def __init__(self, dataset_name, seed):
+    def __init__(self, dataset_name):
         self.dataset_name = dataset_name
         self.data_frame = self.load_data()
-        self.seed = seed
         self.generate_options()
 
     def load_data(self):
@@ -15,7 +14,6 @@ class DataModule:
         return pd.DataFrame(load_dataset(self.dataset_name)['train'])
 
     def generate_options(self):
-        random.seed(self.seed)
         options_list = [{'a': 'us', 'b': 'ko'}, {'a': 'ko', 'b': 'us'}]
         self.data_frame['opt'] = self.data_frame.apply(lambda x: random.choice(options_list), axis=1)
 
