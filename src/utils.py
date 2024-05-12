@@ -3,7 +3,7 @@ from datetime import datetime
 import pandas as pd
 
 #  Save the experimental report to a CSV file
-def save_exp_report(exp_report_file, config, prompt, results):
+def save_exp_report(exp_report_file, config, nation, prompt, results):
     # Extract the directory part from the file path
     exp_report_path = os.path.dirname(exp_report_file)
 
@@ -23,10 +23,14 @@ def save_exp_report(exp_report_file, config, prompt, results):
     columns.append('prompt')
     values.append(str(prompt))
 
-    # Retrieve the keys and values of experimental results
+    # Retrieve the keys and values of experimental results 
     for key, value in results.items():
         columns.append(key)
         values.append(value)
+    
+    # append accuracy metric
+    columns.append('accuracy')
+    values.append(accuracy_metric(nation, results))
 
     # Save report to CSV file
     if os.path.exists(exp_report_file):
@@ -57,3 +61,14 @@ def exists_exp_report(save_path, config):
             break
 
     return existence_flag
+
+def accuracy_metric(nation, result):
+    nation_value = result.get(nation, 0)
+    total_value = sum(result.values())
+    
+    if total_value == 0:
+        return 0
+    
+    accuracy = round((nation_value / total_value) * 100, 2)
+    return accuracy
+

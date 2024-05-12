@@ -7,7 +7,7 @@ class ExperimentModule:
         self.model_module = model_module
         self.model = self.model_module.load_outlines_model()
 
-    def run_experiment(self, prompt, sampling_params, exp=None):
+    def run_experiment(self, prompt, sampling_params, exp=None): 
         if exp == "cot" or exp == "sc":
             # Chain-of-Thought & Self-Consistency Voting
             questions = self.data_module.generate_questions(prompt, exp)
