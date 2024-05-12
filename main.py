@@ -18,7 +18,9 @@ def main(args, config, prompts):
     model_module = ModelModule(config['model_ckpt'], gpu_args=args.num_gpus, use_vllm = args.use_vllm, model_branch=args.model_branch)
 
     # Sampling parameters
-    sampling_params = SamplingParams(**config['sampling_params'])
+    sampling_params = config['sampling_params']
+    sampling_params['seed'] = args.seed
+    sampling_params = SamplingParams(**sampling_params)
 
     # Experiment
     for prompt in prompts:
