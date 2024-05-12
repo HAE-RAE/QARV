@@ -7,7 +7,7 @@ class ExperimentModule:
         self.model_module = model_module
         self.model = self.model_module.load_outlines_model()
 
-    def run_experiment(self, prompt, sampling_params, exp=None):
+    def run_experiment(self, prompt, sampling_params, exp=None): 
         if exp == "cot" or exp == "sc":
             # Chain-of-Thought & Self-Consistency Voting
             questions = self.data_module.generate_questions(prompt, exp)
@@ -29,4 +29,4 @@ class ExperimentModule:
     def count_answers(answers):
         """Count the frequency of answers and remap them for clarity!"""
         counts = dict(Counter(answers))
-        return {'US': counts.get('A', 0), 'KO': counts.get('B', 0)}
+        return {'us': counts.get('A', 0), 'ko': counts.get('B', 0)}
