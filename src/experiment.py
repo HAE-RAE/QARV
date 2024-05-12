@@ -24,10 +24,16 @@ class ExperimentModule:
             questions= self.data_module.generate_questions(prompt, exp)
             generator = outlines.generate.choice(self.model, ['A', 'B'])
             final_answers = generator(questions)
-            results = self.count_answers(final_answers)
+            results = self.count_answers(final_answers, self.data_module.data_frame['opt'])
         return results
+
     @staticmethod
-    def count_answers(answers):
-        """Count the frequency of answers and remap them for clarity!"""
-        counts = dict(Counter(answers))
-        return {'us': counts.get('A', 0), 'ko': counts.get('B', 0)}
+    def count_answers(answers, options):
+        us_count = ko_count = 0
+
+        for answer, option in zip(answers, options):
+            selected = option[answer.lower()]
+            us_count += selected == 'us'
+            ko_count += selected == 'ko'
+
+        return {'US': us_count, 'KO': ko_count}

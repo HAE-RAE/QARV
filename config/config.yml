@@ -6,3 +6,4 @@ sampling_params:
   min_tokens: 20
   max_tokens: 1024
   stop: ["###", "#", "\n\n", "\n"]
+  seed: 2023
