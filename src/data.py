@@ -4,13 +4,16 @@ import random
 
 
 class DataModule:
-    def __init__(self, dataset_name):
+    def __init__(self, dataset_name, dataset_subset=None):
         self.dataset_name = dataset_name
+        self.dataset_subset = dataset_subset
         self.data_frame = self.load_data()
         self.generate_options()
 
     def load_data(self):
         """Load dataset (only using datasets)"""
+        if self.dataset_split:
+            return pd.DataFrame(load_dataset(self.dataset_name, self.dataset_subset)['train'])
         return pd.DataFrame(load_dataset(self.dataset_name)['train'])
 
     def generate_options(self):
