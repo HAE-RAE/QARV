@@ -39,9 +39,9 @@ def main(args, config, prompts):
     # Experiment
     for nation, prompt_group in prompts.items():
         for prompt in prompt_group:
-            data_module = DataModule(config['dataset_name'])
+            data_module = DataModule(config['dataset_name'], args.dataset_subset)
             experiment_module = ExperimentModule(data_module, model_module)
-            results = experiment_module.run_experiment(prompt, sampling_params, args.exp)
+            results = experiment_module.run_experiment(prompt, sampling_params, args.exp_settings)
             analysis_module = AnalysisModule(config, nation, prompt, results)
             report = analysis_module.generate_report(args.exp_report_file)
             print(f"Results for prompt: '{prompt}'")
