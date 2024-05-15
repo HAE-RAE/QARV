@@ -11,7 +11,7 @@ parser.add_argument("--use_vllm", type=bool, default=True, help= "Check if you w
 parser.add_argument("--model_cache_dir", type=str, default=None, help= "Assign huggingface cache directory, if needed")
 parser.add_argument("--model_branch", type = str, default=None, help= "Used when you want to utilize models other than the main branch in huggingface")
 parser.add_argument('--seed', type=int, default=2024, help="Set the random seed for reproducibility")
-parser.add_argument("--exp", type=str, default="mc", help = "Experiment Options (current options: cot, mc, sc, ...)")
+parser.add_argument('--dataset_subset', type=str, default=None, help="Setting subset for language selection. (current options : english, korean)")
 
 def get_args():
     args = parser.parse_args()
