@@ -58,7 +58,7 @@ if __name__ == "__main__":
     # Filter SlimOrca based on threshold
     df_slim_orca = filter_dataset(df=df_slim_orca,
                                   target='avg_rouge_qarv',
-                                  th=0.1,
+                                  th=0.3,
                                   filename='./output/slim_orca_rouge_fil_{th}.csv')
 
     """
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     # Filter KorOpenOrca based on threshold
     df_kor_open_orca = filter_dataset(df=df_kor_open_orca,
                                       target='avg_rouge_qarv',
-                                      th=0.01,
+                                      th=0.3,
                                       filename='./output/kor_open_orca_rouge_fil_{th}.csv')
 
     """
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     # Filter SlimOrca based on threshold
     df_kor_open_orca = filter_dataset(df=df_kor_open_orca,
                                       target='avg_cossim_qarv',
-                                      th=0.01,
+                                      th=0.3,
                                       filename='./output/kor_open_orca_cossim_fil_{th}.csv')
 
     """
