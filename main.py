@@ -24,7 +24,7 @@ def fix_randomness(seed):
     np.random.seed(seed)
     random.seed(seed)
 
-def initialize_logger(log_file='./exp/experiment.log'):
+def initialize_logger(log_file='./log/experiment.log'):
     logger = logging.getLogger('experiment_logger')
     logger.setLevel(logging.DEBUG)
     
