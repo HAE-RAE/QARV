@@ -8,6 +8,7 @@ import yaml
 from config import args
 import numpy as np
 import random
+import logging
 
 # Load configuration from YAML
 def load_config(file_path):
@@ -23,7 +24,28 @@ def fix_randomness(seed):
     np.random.seed(seed)
     random.seed(seed)
 
+def initialize_logger(log_file='./log/experiment.log'):
+    logger = logging.getLogger('experiment_logger')
+    logger.setLevel(logging.DEBUG)
+    
+    c_handler = logging.StreamHandler()
+    f_handler = logging.FileHandler(log_file)
+    c_handler.setLevel(logging.DEBUG)
+    f_handler.setLevel(logging.DEBUG)
+    
+    c_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    c_handler.setFormatter(c_format)
+    f_handler.setFormatter(f_format)
+    
+    logger.addHandler(c_handler)
+    logger.addHandler(f_handler)
+    
+    return logger
+
 def main(args, config, prompts):
+    logger = initialize_logger()
+    logger.info(f"Using configuration: {config}")
 
     # Fix the random seed
     fix_randomness(args.seed)
@@ -40,7 +62,7 @@ def main(args, config, prompts):
     for nation, prompt_group in prompts.items():
         for prompt in prompt_group:
             data_module = DataModule(config['dataset_name'], args.dataset_subset)
-            experiment_module = ExperimentModule(data_module, model_module)
+            experiment_module = ExperimentModule(data_module, model_module, logger)
             results = experiment_module.run_experiment(prompt, sampling_params, args.exp_settings)
             analysis_module = AnalysisModule(config, nation, prompt, results)
             report = analysis_module.generate_report(args.exp_report_file)
@@ -55,5 +77,4 @@ if __name__ == "__main__":
     print(config)
     print(args_cli)
     print(prompts)
-
     main(args_cli, config, prompts)
