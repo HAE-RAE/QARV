@@ -41,4 +41,3 @@ class ModelModule:
             num_gpus = gpu_args
         return int(num_gpus)
 
-
