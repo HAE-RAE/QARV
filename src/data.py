@@ -13,8 +13,8 @@ class DataModule:
     def load_data(self):
         """Load dataset (only using datasets)"""
         if self.dataset_subset:
-            return pd.DataFrame(load_dataset(self.dataset_name, self.dataset_subset)['train'])
-        return pd.DataFrame(load_dataset(self.dataset_name)['train'])
+            return pd.DataFrame(load_dataset(self.dataset_name, self.dataset_subset)['test'])
+        return pd.DataFrame(load_dataset(self.dataset_name)['test'])
 
     def generate_options(self):
         options_list = [{'a': 'us', 'b': 'ko'}, {'a': 'ko', 'b': 'us'}]
@@ -22,7 +22,7 @@ class DataModule:
 
     def generate_questions(self, prompt, exp):
         df = self.data_frame
-        template = "{prompt} ### Question: {q}\n### Option A: {us}\n### Option B: {ko}\n### Response:"
+        template = "{} ### Question: {}\n### Option A: {}\n### Option B: {}\n### Response:"
         if 'sc' in exp:
             k = int(exp.split('-')[-1])
             df = pd.DataFrame({
@@ -32,15 +32,17 @@ class DataModule:
                 })
             self.data_frame = df
             template += " Let’s think step by step."
-
-        prompts = [
-            template.format_map({
-                'prompt': prompt, 'q': row.q,
-                'a': row.us if row.opt['a'] == 'us' else row.ko,
-                'b': row.us if row.opt['b'] == 'us' else row.ko
-            })
-            for _, row in df.iterrows()
-        ]
+        prompts = []
+        for _, row in df.iterrows():
+            a_option = row['us'] if row['opt']['a'] == 'us' else row['ko']
+            b_option = row['us'] if row['opt']['b'] == 'us' else row['ko']
+            prompt_text = template.format(
+                prompt,
+                row['q'],
+                a_option,
+                b_option
+            )
+            prompts.append(prompt_text)
         return prompts
 
     def prepare_for_choice(self, prompt, answers):  # TODO 수정

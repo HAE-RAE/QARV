@@ -63,12 +63,11 @@ def exists_exp_report(save_path, config):
     return existence_flag
 
 def accuracy_metric(nation, result):
-    nation_value = result.get(nation, 0)
+    nation_upper = nation.upper()
+    nation_value = result.get(nation_upper, 0)
     total_value = sum(result.values())
-    
     if total_value == 0:
         return 0
-    
     accuracy = round((nation_value / total_value) * 100, 2)
     return accuracy
 
