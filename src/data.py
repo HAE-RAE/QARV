@@ -12,7 +12,7 @@ class DataModule:
 
     def load_data(self):
         """Load dataset (only using datasets)"""
-        if self.dataset_split:
+        if self.dataset_subset:
             return pd.DataFrame(load_dataset(self.dataset_name, self.dataset_subset)['train'])
         return pd.DataFrame(load_dataset(self.dataset_name)['train'])
 
