@@ -30,6 +30,8 @@ Install all required dependencies by running the following command in your termi
 
 ```bash
 pip install -r requirements.txt
+pip install vllm==0.4.1
+pip install outlines==0.0.39
 ```
 
 ### Experiment Settings
@@ -41,7 +43,7 @@ pip install -r requirements.txt
 ### Usage 
 
 ```bash
-python main.py --config_file ./config/my_config.yml --prompts_file ./config/my_prompts.yml --exp_report_file ./exp/my_results.csv --num_gpus "auto" --exp sc
+python main.py --config_file ./config/config.yml --prompts_file ./config/prompt.yml --exp_report_file ./exp/my_results.csv --num_gpus "auto" --exp sc-3 --dataset_subset english
 ```
 
 ### Arguments
@@ -52,7 +54,7 @@ Type: str
 Default: ./config/config.yml  
 Usage: --config_file PATH  
 
-**--prompts_file** : Specifies the path to the prompts YAML file.
+**--prompts_file** : Specifies the path to the prompts YAML file.  
 Type: str  
 Default: ./config/prompt.yml  
 Usage: --prompts_file PATH  
@@ -67,26 +69,36 @@ Type: str
 Default: auto  
 Usage: --num_gpus NUMBER  
 
-**--exp** : Specifies which experiment to run. This option allows the selection of different experimental setups.  
+**--exp_settings** : Specifies which experiment to run. This option allows the selection of different experimental setups.  
+Type: str  
+Default: mc  
+Usage: --exp_settings EXPERIMENT_OPTION(current options: cot, mc, sc-3, sc-5, ...)  
+
+**--use_vllm** : Specifies whether to use a very large language model (vLLM) for inference.  
+Type: bool  
+Default: True  
+Usage: --use_vllm true or false  
+
+**--model_cache_dir** : Specifies the directory for caching models and other data used by Hugging Face libraries.  
 Type: str  
 Default: None  
-Usage: --exp EXPERIMENT_OPTION(only "sc" is provided now)  
+Usage: --model_cache_dir PATH_TO_CACHE_DIRECTORY  
 
-**--model_cache_dir** : Specifies the directory for caching models and other data used by Hugging Face libraries.   
-Type: str    
-Default: None     
-Usage: --model_cache_dir PATH_TO_CACHE_DIRECTORY    
-
-**--use_vllm** : Specifies whether to use a very large language model (vLLM) for inference.   
-Type: bool    
-Default: True    
-Usage: --use_vllm true or false    
-
-**--model_branch** : Used to specify a particular model branch on the Hugging Face platform when you want to utilize models other than the main branch.    
+**--model_branch** : Used to specify a particular model branch on the Hugging Face platform when you want to utilize models other than the main branch.  
 Type: str  
-Default: None    
-Usage: --model_branch BRANCH_NAME    
-                                 
+Default: None  
+Usage: --model_branch BRANCH_NAME  
+
+**--seed** : Sets the random seed for reproducibility.  
+Type: int  
+Default: 2024  
+Usage: --seed SEED_VALUE  
+
+**--dataset_subset** : Specifies the subset of the dataset for language selection.  
+Type: str  
+Default: None  
+Usage: --dataset_subset SUBSET_OPTION(current options: english, korean)  
+
 ## Contributing
 
 We welcome contributions to this project! For detailed guidelines on how to contribute, please refer to our [Contribution Pages](https://github.com/guijinSON/QARV/tree/main).

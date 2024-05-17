@@ -1,7 +1,5 @@
 pandas
 datasets
 transformers
-vllm==0.4.1
-outlines==0.0.39
 torch
 ray
