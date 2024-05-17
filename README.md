@@ -43,7 +43,7 @@ pip install outlines==0.0.39
 ### Usage 
 
 ```bash
-python main.py --config_file ./config/config.yml --prompts_file ./config/prompt.yml --exp_report_file ./exp/my_results.csv --num_gpus "auto" --exp sc-3 --dataset_subset english
+python main.py --config_file ./config/config.yml --prompts_file ./config/prompt.yml --exp_report_file ./exp/my_results.csv --num_gpus "auto" --exp_settings sc-3 --dataset_subset english
 ```
 
 ### Arguments

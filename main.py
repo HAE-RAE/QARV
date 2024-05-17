@@ -9,6 +9,7 @@ from config import args
 import numpy as np
 import random
 import logging
+import os
 
 # Load configuration from YAML
 def load_config(file_path):
@@ -25,6 +26,11 @@ def fix_randomness(seed):
     random.seed(seed)
 
 def initialize_logger(log_file='./log/experiment.log'):
+    
+    log_dir = os.path.dirname(log_file)
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
     logger = logging.getLogger('experiment_logger')
     logger.setLevel(logging.DEBUG)
     
