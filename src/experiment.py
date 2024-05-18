@@ -29,7 +29,7 @@ class ExperimentModule:
                 k = int(exp.split('-')[-1])
                 final_answers = [Counter(final_answers[i:i+k]).most_common()[0][0] for i in range(0, len(final_answers), k)]
                 self.logger.debug(f"Self-consistency voting results: {final_answers}")
-            results = self.count_answers(final_answers)
+            results = self.count_answers(final_answers, self.data_module.data_frame['opt'])
         else:
             # multiple choice
             self.logger.debug("Experiment type: Multiple Choice")
