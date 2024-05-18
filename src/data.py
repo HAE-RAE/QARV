@@ -27,8 +27,9 @@ class DataModule:
             k = int(exp.split('-')[-1])
             df = pd.DataFrame({
                     'q': [q for q in df['q'] for _ in range(k)],
-                    'us': [q for q in df['us'] for _ in range(k)],
-                    'ko': [q for q in df['ko'] for _ in range(k)],
+                    'us': [us for us in df['us'] for _ in range(k)],
+                    'ko': [ko for ko in df['ko'] for _ in range(k)],
+                    'opt': [opt for opt in df['opt'] for _ in range(k)],
                 })
             self.data_frame = df
             template += " Let’s think step by step."
