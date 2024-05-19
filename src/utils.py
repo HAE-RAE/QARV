@@ -68,7 +68,6 @@ def accuracy_metric(nation, result):
     total_value = sum(result.values())
     if total_value == 0:
         return 0
-    category_accuracy{}
     accuracy = round((nation_value / total_value) * 100, 2)
     return accuracy
 
