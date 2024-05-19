@@ -12,9 +12,9 @@ class DataModule:
 
     def load_data(self):
         """Load dataset (only using datasets)"""
-        if self.dataset_subset:
-            return pd.DataFrame(load_dataset(self.dataset_name, self.dataset_subset)['test'])
-        return pd.DataFrame(load_dataset(self.dataset_name)['test'])
+        # if self.dataset_subset:
+        #     return pd.DataFrame(load_dataset(self.dataset_name, self.dataset_subset)['test'])
+        return pd.DataFrame(load_dataset(self.dataset_name)['train'])
 
     def generate_options(self):
         options_list = [{'a': 'us', 'b': 'ko'}, {'a': 'ko', 'b': 'us'}]
@@ -30,6 +30,7 @@ class DataModule:
                     'us': [us for us in df['us'] for _ in range(k)],
                     'ko': [ko for ko in df['ko'] for _ in range(k)],
                     'opt': [opt for opt in df['opt'] for _ in range(k)],
+                    'category' : [cat for cat in df['category'] for _ in range(k)]
                 })
             self.data_frame = df
             template += " Let’s think step by step."
