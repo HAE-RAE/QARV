@@ -68,6 +68,8 @@ def main(args, config, prompts):
     for nation, prompt_group in prompts.items():
         for prompt in prompt_group:
             data_module = DataModule(config['dataset_name'], args.dataset_subset)
+            # print(data_module.data_frame)
+            # break
             experiment_module = ExperimentModule(data_module, model_module, logger)
             results = experiment_module.run_experiment(prompt, sampling_params, args.exp_settings)
             analysis_module = AnalysisModule(config, nation, prompt, results)
