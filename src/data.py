@@ -22,7 +22,7 @@ class DataModule:
 
     def generate_questions(self, prompt, exp):
         df = self.data_frame
-        template = "{} ### Question: {}\n### Option A: {}\n### Option B: {}\n### Response:"
+        template = "{} ### Question: {}\n### Option A: {}\n### Option B: {} \n### Option C : None of Above \n### Response:"
         if 'sc' in exp:
             k = int(exp.split('-')[-1])
             df = pd.DataFrame({
@@ -50,7 +50,7 @@ class DataModule:
         self.data_frame['answer'] = answers
         """Prepare data for choosing between options."""
         prompts = [
-            "{} ### Question: {}\n### Option A: {}\n### Option B: {}\n### Response: {}\n### Answer: Option ".format(
+            "{} ### Question: {}\n### Option A: {}\n### Option B: {} \n### Option C: None of Above \n### Response: {}\n### Answer: Option ".format(
                 prompt, row.q,
                 row.us if row.opt['a'] == 'us' else row.ko,
                 row.us if row.opt['b'] == 'us' else row.ko,
