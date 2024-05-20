@@ -80,6 +80,7 @@ if __name__ == "__main__":
     args_cli = args.get_args()
     config = load_config(args_cli.config_file)
     prompts = load_config(args_cli.prompts_file)
+    config['model_ckpt'] = args_cli.model_name
     print(config)
     print(args_cli)
     print(prompts)
