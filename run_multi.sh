@@ -12,10 +12,10 @@ do
     echo "Running scripts for model: $MODEL"
     
     echo "Running generate_query.py"
-#     python generate_query.py --model $MODEL
+    python generate_query.py --model $MODEL
 
     echo "Running generate_final_answer.py"
-    python generate_final_answer.py --model $MODEL --custom_batch_size 16
+    python generate_final_answer_multi.py --model $MODEL --custom_batch_size 16
 
     echo "Running evaluate.py"
     python evaluate.py --model $MODEL

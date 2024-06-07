@@ -24,12 +24,13 @@ def main():
 
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForCausalLM.from_pretrained(model_path, device_map="auto")
+    batch_size = args.custom_batch_size if args.custom_batch_size > config['batch_size'] else config['batch_size']
 
     # Process default path
-    process_queries(default_path, model, tokenizer, config['options'], config['batch_size'], config['device'])
+    process_queries(default_path, model, tokenizer, config['options'], batch_size, config['device'])
 
     # Process cot path
-    process_queries(cot_path, model, tokenizer, config['options'], config['batch_size'], config['device'])
+    process_queries(cot_path, model, tokenizer, config['options'], batch_size, config['device'])
 
 if __name__ == "__main__":
     main()

@@ -7,6 +7,7 @@ import yaml
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Model name.')
     parser.add_argument('--model', type=str, required=True, help='Model to use')
+    parser.add_argument('--custom_batch_size', type=int, default=0, help='Custom batch size if needed')
     return parser.parse_args()
 
 def load_config(file_path='config.yaml'):
@@ -25,7 +26,6 @@ def initialize_vllm_model(model_path):
     
     llm = LLM(
             model=model_path, 
-            tensor_parallel_size=torch.cuda.device_count(),
             max_model_len = 512
         )
     
