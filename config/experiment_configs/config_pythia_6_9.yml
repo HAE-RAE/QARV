@@ -1,8 +1,0 @@
-dataset_name: 'HAERAE-HUB/QARV-binary-set'
-model_ckpt: 'EleutherAI/pythia-6.9b'
-sampling_params:
-  temperature: 0.8
-  top_p: 0.95
-  min_tokens: 20
-  max_tokens: 1024
-  stop: ["###", "#", "\n\n", "\n"]

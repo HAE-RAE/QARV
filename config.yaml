@@ -1,0 +1,19 @@
+languages:
+  - english
+  - korean
+targets:
+  - us
+  - ko
+prompts:
+  - na
+  - qa
+  - bio
+  - rtf
+cot: true
+file_path: "results/"
+options:
+  - A
+  - B
+  - C
+batch_size: 4
+device: "cuda"
