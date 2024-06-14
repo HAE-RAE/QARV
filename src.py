@@ -1,9 +1,6 @@
-from vllm import LLM, SamplingParams
 import json
-import torch
-import argparse
-import yaml
 
+<<<<<<< Updated upstream
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Model name.')
     parser.add_argument('--model', type=str, required=True, help='Model to use')
@@ -36,4 +33,18 @@ def write_output(path, data):
         for dictionary in data:
             json.dump(dictionary, file)
             file.write('\n')
+=======
+def save_to_jsonl(data, filename):
+    with open(filename, 'w') as file:
+        for entry in data:
+            json_string = json.dumps(entry)
+            file.write(json_string + '\n')
+
+def logprob_answer(logprob):
+    for _,item in logprob.items():
+        token = item.decoded_token.strip().upper()
+        if token in ['A','B','C']:
+            return token
+        return 'C'
+>>>>>>> Stashed changes
 

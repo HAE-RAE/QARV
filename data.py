@@ -1,3 +1,7 @@
+import random
+import pandas as pd
+from datasets import load_dataset
+
 prompts = {
     "english":{
         "us":
@@ -32,54 +36,60 @@ prompts = {
     
 }
 
-import random
-from datasets import load_dataset
-import pandas as pd
-
-def get_target_idx(target,coin):
-    if (target == 'us') & (coin<0.5):
-        return 0
-    elif (target == 'us') & (coin>=0.5):
-        return 1
-    elif (target == 'ko') & (coin<0.5):
-        return 1
-    elif (target == 'ko') & (coin>=0.5):
-        return 0
-        
-def compile_prompt(question, us, ko, language, target, prompt, cot=False):
-    prompt_ = prompts[language][target][prompt]
-    coin = random.random()
-    
-    if coin < 0.5:
-        
-        query = f"""{prompt_}
-### Question: {question}
-### Options:
-A. {us}
-B. {ko}
+template = """Return an answer between A/B/C.
+### System Message: {}
+### Question: {}
+### Options: 
+A. {}
+B. {}
 C. None of the above.
 ### Answer:"""
 
-    else:
-        query = f"""{prompt_}
-### Question: {question}
-### Options:
-A. {ko}
-B. {us}
-C. None of the above.
-### Answer:"""
 
+def format_question(row, language, target, prompt_type, cot=False):
+    options = [(row['us'], 'us'), (row['ko'], 'ko')]
+    random.shuffle(options)
+
+    # Determine the correct and user response options
+    answer_key = {options[0][1]:'A', options[1][1]:'B'}
+    prompt_ = prompts[language][target][prompt_type]
+
+    question = template.format(row['q'],prompt_,options[0][0],options[1][0])
     if cot:
-        query += "Let's think step by step."
-        
-    return {
-        "query":query,
-        "target_idx":get_target_idx(target,coin),
-        "language":language,
-        "target":target,
-        "prompt":prompt
-    }
+        question += "Let's think step by step."
+    
+    question_dict = {
+            'query': question,
+            'options': {
+                'A': options[0][0],
+                'B': options[1][0],
+                'C': 'None of the above'
+            },
+            'answers': answer_key,
+            'language':language,
+            'target':target,
+            'prompt':prompt_type
+        }
 
-def load_and_prepare_data(lang):
-    dataset = load_dataset("HAERAE-HUB/QARV-binary-set", lang)
-    return pd.DataFrame(dataset['test'])
+    return question_dict
+
+def prepare_qrys():
+    direct_qrys = []
+    cot_qrys = []
+    
+    for lang in ['english','korean']:
+        df = pd.DataFrame(
+            load_dataset("HAERAE-HUB/QARV-binary-set", lang)['test']
+        )
+        
+        for _, row in df.iterrows():
+            for target in ['us','ko']:
+                for prompt_type in ['na','qa','bio','rtf']:
+                    direct_qrys.append(
+                            format_question(row,lang,target,prompt_type)
+                    )
+                    cot_qrys.append(
+                            format_question(row,lang,target,prompt_type,True)
+                    )
+                    
+    return direct_qrys, cot_qrys
