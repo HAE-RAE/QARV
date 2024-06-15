@@ -3,6 +3,7 @@ from data import prepare_qrys
 from vllm import LLM, SamplingParams
 from src import save_to_jsonl, logprob_answer
 import pandas as pd
+import torch
 
 parser = argparse.ArgumentParser(description="Run LLM model inference.")
 parser.add_argument('--model_name', type=str, required=True, help='Name of the model to use for inference.')
