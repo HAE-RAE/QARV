@@ -8,13 +8,16 @@ import torch
 parser = argparse.ArgumentParser(description="Run LLM model inference.")
 parser.add_argument('--model_name', type=str, required=True, help='Name of the model to use for inference.')
 parser.add_argument('--output_path', type=str, required=True, help='Path to save the output files.')
+parser.add_argument('--model_revision', type=str, required=False, help='Revision of the model to use for inference.')
+
 
 args = parser.parse_args()
 model_name = args.model_name
 model_dir = model_name.replace('/','_')
 output_path = args.output_path
+model_revision = args.model_revision
 
-llm = LLM(model=model_name,tensor_parallel_size=torch.cuda.device_count(),max_model_len=2048)
+llm = LLM(model=model_name,tensor_parallel_size=torch.cuda.device_count(),max_model_len=2048,revision=model_revision,disable_custom_all_reduce=True)
 direct_qrys, cot_qrys = prepare_qrys()
 direct_sampling_params = SamplingParams(temperature=0.0, logprobs=20, max_tokens=5)
 cot_sampling_params = SamplingParams(temperature=0.8, top_p=0.95, logprobs=20, min_tokens=20, max_tokens=512)
