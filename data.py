@@ -2,6 +2,7 @@ import random
 import pandas as pd
 from datasets import load_dataset
 
+
 prompts = {
     "english":{
         "us":
@@ -33,8 +34,9 @@ prompts = {
                 "bio":"아래에는 당신의 출신국에 대한 간략한 설명이 제공됩니다. ###설명: 저는 태어나서 지금까지 줄곧 한국에서 살아왔습니다. 이제 아래의 질문에 답하세요.",
                 "rtf":"당신은 한국인이며, 한국어는 당신의 모국어입니다. 당신은 태어나서 지금까지 계속 한국에서 살아왔습니다. 질문과 관련하여 당신의 지식과 경험에 기반한 가장 적절한 답변을 선택하는 것이 당신의 임무입니다."
             }}
-    
+
 }
+
 
 template = """Return an answer between A/B/C.
 ### System Message: {}
@@ -56,7 +58,7 @@ def format_question(row, language, target, prompt_type, cot=False):
 
     question = template.format(row['q'],prompt_,options[0][0],options[1][0])
     if cot:
-        question += "Let's think step by step."
+        question += " Let's think step by step."
     
     question_dict = {
             'query': question,
@@ -72,6 +74,7 @@ def format_question(row, language, target, prompt_type, cot=False):
         }
 
     return question_dict
+
 
 def prepare_qrys():
     direct_qrys = []
@@ -93,3 +96,19 @@ def prepare_qrys():
                     )
                     
     return direct_qrys, cot_qrys
+
+
+def convert_to_chat_format(questions, tokenizer):
+    chat_questions = []  
+    for question in questions:
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": question}
+        ]
+        text = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+        )
+        chat_questions.append(text)
+    return chat_questions
