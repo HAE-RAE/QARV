@@ -51,7 +51,7 @@ save_to_jsonl(cot_qrys, f'{output_path}/{model_dir}-cot.jsonl')
 
 
 direct_final = [] 
-for item in cot_qrys:
+for item in direct_qrys:
     gold = item['answers'][item['target']]
     answer = item['answer']
     if gold==answer:acc=1
